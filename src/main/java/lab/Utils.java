@@ -1,11 +1,16 @@
 package lab;
 
+import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
+import io.github.bonigarcia.wdm.managers.FirefoxDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -16,10 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Utils {
-    public static final String CHROME_PROPERTY_NAME = "webdriver.chrome.driver";
-    public static final String CHROME_PROPERTY_PATH = "drivers/selenium-chrome-driver-4.21.0.jar";
-    public static final String FIREFOX_PROPERTY_NAME = "webdriver.firefox.driver";
-    public static final String FIREFOX_PROPERTY_PATH = "drivers/selenium-firefox-driver-4.21.0.jar";
     public static final String BASE_URL = "https://drive2.ru/";
 
     public static final String CORRECT_EMAIL = "stoneshik@mail.ru";
@@ -52,23 +53,25 @@ public class Utils {
         throw new RuntimeException("Web driver is not specified");
     }
 
-    private static ChromeDriver getChromeDriver() {
-        if (!System.getProperties().containsKey(CHROME_PROPERTY_NAME)) {
-            throw new RuntimeException("Chrome driver not set properly");
-        }
+    private static RemoteWebDriver getChromeDriver() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments(
+            "user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+        );
         return new ChromeDriver();
     }
 
     private static FirefoxDriver getFirefoxDriver() {
-        if (!System.getProperties().containsKey(FIREFOX_PROPERTY_NAME)) {
-            throw new RuntimeException("Firefox driver not set properly");
-        }
+        FirefoxOptions options = new FirefoxOptions();
+        options.addArguments(
+            "user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36"
+        );
         return new FirefoxDriver();
     }
 
     public static void prepareDrivers() {
-        System.setProperty(CHROME_PROPERTY_NAME, CHROME_PROPERTY_PATH);
-        System.setProperty(FIREFOX_PROPERTY_NAME, FIREFOX_PROPERTY_PATH);
+        ChromeDriverManager.getInstance().setup();
+        FirefoxDriverManager.getInstance().setup();
     }
 
     public static WebElement getElementByXpath(WebDriver driver, By selector) {
