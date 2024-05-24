@@ -18,18 +18,6 @@ public class LoginPage extends Page {
         tryLogin(Utils.CORRECT_EMAIL, Utils.INCORRECT_PASSWORD);
     }
 
-    public void doLogout() {
-        Utils.getElementByXpath(
-            driver,
-            By.xpath("/html/body/header/div/div/div/button[2]/div")
-        ).click();
-        Utils.getElementByXpath(
-            driver,
-            By.xpath("/html/body/header/div/div/div/div[1]/form/button")
-        ).click();
-        Utils.waitUntilPageLoads(driver, 10);
-    }
-
     private void tryLogin(CharSequence email, CharSequence password) {
         WebElement emailInput = Utils.getElementByXpath(
             driver,
@@ -47,6 +35,6 @@ public class LoginPage extends Page {
         passwordInput.clear();
         emailInput.sendKeys(email);
         passwordInput.sendKeys(password);
-        authButton.click();
+        Utils.click(driver, authButton);
     }
 }

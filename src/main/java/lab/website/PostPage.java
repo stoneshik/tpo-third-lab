@@ -3,6 +3,7 @@ package lab.website;
 import lab.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.util.Objects;
 
@@ -19,28 +20,32 @@ public class PostPage extends Page {
     }
 
     public void goToEarlier() {
-        Utils.getElementByXpath(
+        WebElement goToEarlierButton = Utils.getElementByXpath(
             driver,
             By.xpath("/html/body/main/div/div[2]/div/div[2]/div[3]/div[5]/div/a[1]")
-        ).click();
+        );
+        Utils.click(driver, goToEarlierButton);
     }
 
     public void goToFurther() {
-        Utils.getElementByXpath(
+        WebElement goToFurtherButton = Utils.getElementByXpath(
             driver,
             By.xpath("/html/body/main/div/div[2]/div/div[2]/div[3]/div[5]/div/a[2]")
-        ).click();
+        );
+        Utils.click(driver, goToFurtherButton);
     }
 
     public boolean addToFavourites() {
-        Utils.getElementByXpath(
+        WebElement addToFavouritesButton = Utils.getElementByXpath(
             driver,
             By.xpath("/html/body/main/div/div[2]/div/div[2]/div[3]/div[4]/div[1]/bookmark-button")
-        ).click();
-        Utils.getElementByXpath(
+        );
+        WebElement saveButton = Utils.getElementByXpath(
             driver,
             By.xpath("/html/body/div[7]/div/div[2]/form/div[3]/button")
-        ).click();
+        );
+        Utils.click(driver, addToFavouritesButton);
+        Utils.click(driver, saveButton);
         return Objects.equals(
             Utils.getElementByXpath(
                 driver,
@@ -51,10 +56,11 @@ public class PostPage extends Page {
     }
 
     public boolean removeFromFavourites() {
-        Utils.getElementByXpath(
+        WebElement removeFromFavouritesButton = Utils.getElementByXpath(
             driver,
             By.xpath("/html/body/main/div/div[2]/div/div[2]/div[3]/div[4]/div[1]/bookmark-button")
-        ).click();
+        );
+        Utils.click(driver, removeFromFavouritesButton);
         return Objects.equals(
             Utils.getElementByXpath(
                 driver,

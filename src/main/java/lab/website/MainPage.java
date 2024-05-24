@@ -13,7 +13,7 @@ public class MainPage extends Page {
     public String getTitle() {
         return Utils.getElementByXpath(
             driver,
-            By.xpath("/html/body/main/div/div[2]/div[1]/div/header/h1")
+            By.xpath("/html/body/main/div/div[2]/div/div[1]/div[1]/header/h1")
         ).getText();
     }
 
@@ -23,7 +23,21 @@ public class MainPage extends Page {
             By.xpath("//*[@id=\"experience\"]/div[5]/button")
         );
         applyFilters();
-        searchButton.click();
+        Utils.click(driver, searchButton);
+    }
+
+    public void doLogout() {
+        WebElement settingsButton = Utils.getElementByXpath(
+            driver,
+            By.xpath("/html/body/header/div/div/div/button[2]/div")
+        );
+        Utils.click(driver, settingsButton);
+        Utils.wait(driver, 5);
+        WebElement exitButton = Utils.getElementByXpath(
+            driver,
+            By.xpath("/html/body/header/div/div/div/div[1]/form")
+        );
+        Utils.click(driver, exitButton);
     }
 
     public String goToPostPage() {
@@ -35,8 +49,8 @@ public class MainPage extends Page {
             driver,
             By.xpath("/html/body/main/div/div[2]/div[2]/div[1]/div[3]/div/div[2]/div/div/div[3]/div[2]/a")
         );
-        expandPost.click();
-        openPost.click();
+        Utils.click(driver, expandPost);
+        Utils.click(driver, openPost);
         return openPost.getText();
     }
 
@@ -57,9 +71,9 @@ public class MainPage extends Page {
             driver,
             By.xpath("//*[@id=\"experience\"]/div[2]/select/option[2]")
         );
-        carBrandField.click();
-        carBrandOption.click();
-        carModelField.click();
-        carModelOption.click();
+        Utils.click(driver, carBrandField);
+        Utils.click(driver, carBrandOption);
+        Utils.click(driver, carModelField);
+        Utils.click(driver, carModelOption);
     }
 }
