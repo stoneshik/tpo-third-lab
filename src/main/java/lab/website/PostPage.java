@@ -22,8 +22,9 @@ public class PostPage extends Page {
     public void goToEarlier() {
         WebElement goToEarlierButton = Utils.getElementByXpath(
             driver,
-            By.xpath("/html/body/main/div/div[2]/div/div[2]/div[3]/div[5]/div/a[1]")
+            By.xpath("/html/body/main/div/div[2]/div/div[2]/div[3]/div[5]/div/a")
         );
+        Utils.scroll(driver, goToEarlierButton);
         Utils.click(driver, goToEarlierButton);
     }
 
@@ -32,6 +33,7 @@ public class PostPage extends Page {
             driver,
             By.xpath("/html/body/main/div/div[2]/div/div[2]/div[3]/div[5]/div/a[2]")
         );
+        Utils.scroll(driver, goToFurtherButton);
         Utils.click(driver, goToFurtherButton);
     }
 
@@ -40,11 +42,12 @@ public class PostPage extends Page {
             driver,
             By.xpath("/html/body/main/div/div[2]/div/div[2]/div[3]/div[4]/div[1]/bookmark-button")
         );
+        Utils.click(driver, addToFavouritesButton);
+        Utils.wait(driver, 5);
         WebElement saveButton = Utils.getElementByXpath(
             driver,
             By.xpath("/html/body/div[7]/div/div[2]/form/div[3]/button")
         );
-        Utils.click(driver, addToFavouritesButton);
         Utils.click(driver, saveButton);
         return Objects.equals(
             Utils.getElementByXpath(

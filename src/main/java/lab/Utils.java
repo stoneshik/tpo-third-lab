@@ -1,6 +1,7 @@
 package lab;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -33,5 +34,10 @@ public class Utils {
     public static void click(WebDriver driver, WebElement element) {
         Actions actions = new Actions(driver);
         actions.moveToElement(element).click().build().perform();
+    }
+
+    public static void scroll(WebDriver driver, WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].scrollIntoView(true);", element);
     }
 }
