@@ -32,9 +32,9 @@ public class SearchTest {
                 loginPage.doCorrectLogin();
                 Utils.wait(webDriver, 15);
                 mainPage.doSearch();
-                Utils.wait(webDriver, 10);
+                Utils.wait(webDriver, 5);
                 String title = mainPage.getTitleForPageWithFilters();
-                assertEquals("Аксессуары, видео, визит на&#160;сервис и ещё 34", title);
+                assertEquals("Автозвук, аксессуары, видео и ещё 34", title);
                 webDriver.quit();
             }
         );

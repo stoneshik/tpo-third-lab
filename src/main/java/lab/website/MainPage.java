@@ -33,10 +33,10 @@ public class MainPage extends Page {
         Utils.wait(driver, 5);
         WebElement carAudioLabel = Utils.getElementByXpath(
             driver,
-            By.xpath("/html/body/main/div/div[2]/div[2]/div[2]/div[1]/div/form/div[7]/label[1]")
+            By.xpath("//label[contains(.,'автозвук')]")
         );
-        Utils.clickAndScroll(driver, carAudioLabel);
-        Utils.wait(driver, 30);
+        Utils.click(driver, carAudioLabel);
+        Utils.wait(driver, 5);
         WebElement searchButtonSecond = Utils.getElementByXpath(
             driver,
             By.xpath("/html/body/main/div/div[2]/div[2]/div[2]/div[1]/div/form/div[8]/button")
