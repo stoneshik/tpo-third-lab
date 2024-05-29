@@ -48,14 +48,18 @@ public class SeleniumManager {
                 if (property.startsWith("WEB_DRIVER")) {
                     switch (property.toLowerCase().split("=")[1]) {
                         case "chrome":
-                            drivers.add(getChromeDriver());
+                            createDriver(drivers, getChromeDriver());
                             return drivers;
                         case "firefox":
-                            drivers.add(getFirefoxDriver());
+                            createDriver(drivers, getFirefoxDriver());
                             return drivers;
                         case "both":
-                            drivers.add(getChromeDriver());
-                            drivers.add(getFirefoxDriver());
+                            WebDriver firefoxDriver = getFirefoxDriver();
+                            firefoxDriver.manage().window().maximize();
+                            WebDriver chromeDriver = getChromeDriver();
+                            chromeDriver.manage().window().maximize();
+                            drivers.add(chromeDriver);
+                            drivers.add(firefoxDriver);
                             return drivers;
                     }
                 }
@@ -64,6 +68,11 @@ public class SeleniumManager {
             e.printStackTrace();
         }
         throw new RuntimeException("Web driver is not specified");
+    }
+
+    private void createDriver(List<WebDriver> drivers, WebDriver driver) {
+        driver.manage().window().maximize();
+        drivers.add(driver);
     }
 
     private RemoteWebDriver getChromeDriver() {

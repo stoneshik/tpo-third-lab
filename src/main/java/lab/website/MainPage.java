@@ -17,13 +17,32 @@ public class MainPage extends Page {
         ).getText();
     }
 
+    public String getTitleForPageWithFilters() {
+        return Utils.getElementByXpath(
+            driver,
+            By.xpath("/html/body/main/div/div[2]/div[1]/div/header/h1")
+        ).getText();
+    }
+
     public void doSearch() {
         WebElement searchButton = Utils.getElementByXpath(
             driver,
-            By.xpath("//*[@id=\"experience\"]/div[5]/button")
+            By.xpath("/html/body/main/div/div[2]/div/div[2]/div[1]/div[1]/form/div[5]/button")
         );
-        applyFilters();
         Utils.click(driver, searchButton);
+        Utils.wait(driver, 5);
+        WebElement carAudioLabel = Utils.getElementByXpath(
+            driver,
+            By.xpath("/html/body/main/div/div[2]/div[2]/div[2]/div[1]/div/form/div[7]/label[1]")
+        );
+        Utils.clickAndScroll(driver, carAudioLabel);
+        Utils.wait(driver, 30);
+        WebElement searchButtonSecond = Utils.getElementByXpath(
+            driver,
+            By.xpath("/html/body/main/div/div[2]/div[2]/div[2]/div[1]/div/form/div[8]/button")
+        );
+        Utils.click(driver, searchButtonSecond);
+        Utils.wait(driver, 5);
     }
 
     public void doLogout() {
@@ -40,52 +59,46 @@ public class MainPage extends Page {
         Utils.click(driver, exitButton);
     }
 
-    public String goToPostPage() {
-        /*
-        WebElement expandPost = Utils.getElementByXpath(
+    public void goToPostPage() {
+        WebElement searchButton = Utils.getElementByXpath(
             driver,
-            By.xpath("/html/body/main/div/div[2]/div[2]/div[1]/div[3]/div/div[2]/div/div/div[4]/button")
+            By.xpath("/html/body/main/div/div[2]/div/div[2]/div[1]/div[1]/form/div[5]/button")
         );
-        Utils.click(driver, expandPost);
-        Utils.wait(driver, 5);
+        Utils.click(driver, searchButton);
+        Utils.wait(driver, 10);
         WebElement openPost = Utils.getElementByXpath(
             driver,
-            By.xpath("/html/body/main/div/div[2]/div[2]/div[1]/div[3]/div/div[2]/div/div/div[3]/div[2]/a")
+            By.xpath("/html/body/main/div/div[2]/div[2]/div[1]/div[3]/div/div[2]/div/div/a")
         );
-        Utils.click(driver, openPost);*/
-        WebElement openPost = Utils.getElementByXpath(
-            driver,
-            By.xpath("/html/body/main/div/div[2]/div/div[1]/div[3]/div[3]/div/div[1]/a")
-        );
-        Utils.scroll(driver, openPost);
-        Utils.click(driver, openPost);
-        return openPost.getText();
+        Utils.clickAndScroll(driver, openPost);
     }
 
-    private void applyFilters() {
-        WebElement carBrandField = Utils.getElementByXpath(
+    public boolean addLike() {
+        WebElement searchButton = Utils.getElementByXpath(
             driver,
-            By.xpath("/html/body/main/div/div[2]/div/div[2]/div[1]/div[1]/form/div[1]")
+            By.xpath("/html/body/main/div/div[2]/div/div[2]/div[1]/div[1]/form/div[5]/button")
         );
-        Utils.click(driver, carBrandField);
-        Utils.wait(driver, 5);
-        WebElement carBrandOption = Utils.getElementByXpath(
+        Utils.click(driver, searchButton);
+        Utils.wait(driver, 10);
+        WebElement addToFavouritesButton = Utils.getElementByXpath(
             driver,
-            By.xpath("/html/body/main/div/div[2]/div/div[2]/div[1]/div[1]/form/div[1]/select/option[2]")
+            By.xpath(
+                "/html/body/main/div/div[2]/div[2]/div[1]/div[3]/div/div[2]/div/div/div[4]/div/like-button"
+            )
         );
-        Utils.scroll(driver, carBrandOption);
-        Utils.click(driver, carBrandOption);
-        Utils.wait(driver, 5);
-        WebElement carModelField = Utils.getElementByXpath(
+        String countBefore = addToFavouritesButton.getAttribute("count");
+        Utils.clickAndScroll(driver, addToFavouritesButton);
+        Utils.wait(driver, 10);
+        addToFavouritesButton = Utils.getElementByXpath(
             driver,
-            By.xpath("//*[@id=\"experience\"]/div[2]/select")
+            By.xpath(
+                "/html/body/main/div/div[2]/div[2]/div[1]/div[3]/div/div[2]/div/div/div[4]/div/like-button"
+            )
         );
-        Utils.click(driver, carModelField);
-        Utils.wait(driver, 5);
-        WebElement carModelOption = Utils.getElementByXpath(
-            driver,
-            By.xpath("//*[@id=\"experience\"]/div[2]/select/option[2]")
-        );
-        Utils.click(driver, carModelOption);
+        String count = addToFavouritesButton.getAttribute("count");
+        if (countBefore == null) {
+            return count == null || count.equals("1");
+        }
+        return Integer.parseInt(countBefore) != Integer.parseInt(count);
     }
 }

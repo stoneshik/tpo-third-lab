@@ -36,8 +36,13 @@ public class Utils {
         actions.moveToElement(element).click().build().perform();
     }
 
-    public static void scroll(WebDriver driver, WebElement element) {
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].scrollIntoView(true);", element);
+    public static void clickAndScroll(WebDriver driver, WebElement element) {
+        WebElement myElement = new WebDriverWait(
+            driver, Duration.ofSeconds(20)
+        ).until(
+            ExpectedConditions.visibilityOf(element)
+        );
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", myElement);
+        click(driver, element);
     }
 }

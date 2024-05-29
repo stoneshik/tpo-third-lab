@@ -3,7 +3,6 @@ import lab.Utils;
 import lab.website.LoginPage;
 import lab.website.MainPage;
 import lab.website.UnauthorizedMainPage;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -21,11 +20,6 @@ public class AuthorizationTest {
         seleniumManager.prepareDrivers();
     }
 
-    @AfterEach
-    public void closeDrivers() {
-        seleniumManager.closeDrivers();
-    }
-
     @Test
     public void correctLoginTest() {
         List<WebDriver> drivers = seleniumManager.getDrivers();
@@ -40,6 +34,7 @@ public class AuthorizationTest {
                 Utils.wait(webDriver, 15);
                 String title = mainPage.getTitle();
                 assertEquals("Лента", title);
+                webDriver.quit();
             }
         );
     }
@@ -60,6 +55,7 @@ public class AuthorizationTest {
                     By.xpath("//*[@id=\"loginForm\"]/div[2]/span")
                 ).getText();
                 assertEquals("Указан неверный логин или пароль", errorMessage);
+                webDriver.quit();
             }
         );
     }
@@ -77,6 +73,7 @@ public class AuthorizationTest {
                 loginPage.doCorrectLogin();
                 Utils.wait(webDriver, 15);
                 mainPage.doLogout();
+                webDriver.quit();
             }
         );
     }

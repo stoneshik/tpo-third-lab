@@ -3,7 +3,6 @@ import lab.Utils;
 import lab.website.LoginPage;
 import lab.website.MainPage;
 import lab.website.UnauthorizedMainPage;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -20,11 +19,6 @@ public class SearchTest {
         seleniumManager.prepareDrivers();
     }
 
-    @AfterEach
-    public void closeDrivers() {
-        seleniumManager.closeDrivers();
-    }
-
     @Test
     public void searchTest() {
         List<WebDriver> drivers = seleniumManager.getDrivers();
@@ -38,8 +32,10 @@ public class SearchTest {
                 loginPage.doCorrectLogin();
                 Utils.wait(webDriver, 15);
                 mainPage.doSearch();
-                String title = mainPage.getTitle();
-                assertEquals("Acura CL", title);
+                Utils.wait(webDriver, 10);
+                String title = mainPage.getTitleForPageWithFilters();
+                assertEquals("Аксессуары, видео, визит на&#160;сервис и ещё 34", title);
+                webDriver.quit();
             }
         );
     }

@@ -11,14 +11,14 @@ public class LoginPage extends Page {
     }
 
     public void doCorrectLogin() {
-        tryLogin(Utils.CORRECT_EMAIL, Utils.CORRECT_PASSWORD);
+        tryLogin(Utils.CORRECT_PASSWORD);
     }
 
     public void doIncorrectLogin() {
-        tryLogin(Utils.CORRECT_EMAIL, Utils.INCORRECT_PASSWORD);
+        tryLogin(Utils.INCORRECT_PASSWORD);
     }
 
-    private void tryLogin(CharSequence email, CharSequence password) {
+    private void tryLogin(CharSequence password) {
         WebElement emailInput = Utils.getElementByXpath(
             driver,
             By.xpath("//*[@id=\"loginForm\"]/div[1]/input")
@@ -33,7 +33,7 @@ public class LoginPage extends Page {
         );
         emailInput.clear();
         passwordInput.clear();
-        emailInput.sendKeys(email);
+        emailInput.sendKeys(Utils.CORRECT_EMAIL);
         passwordInput.sendKeys(password);
         Utils.click(driver, authButton);
     }

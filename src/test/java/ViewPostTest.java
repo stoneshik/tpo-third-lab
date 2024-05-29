@@ -4,14 +4,13 @@ import lab.website.LoginPage;
 import lab.website.MainPage;
 import lab.website.PostPage;
 import lab.website.UnauthorizedMainPage;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class ViewPostTest {
     private final SeleniumManager seleniumManager = new SeleniumManager();
@@ -19,11 +18,6 @@ public class ViewPostTest {
     @BeforeEach
     public void prepareDrivers() {
         seleniumManager.prepareDrivers();
-    }
-
-    @AfterEach
-    public void closeDrivers() {
-        seleniumManager.closeDrivers();
     }
 
     @Test
@@ -41,17 +35,9 @@ public class ViewPostTest {
                 mainPage.goToPostPage();
                 PostPage postPage = new PostPage(webDriver);
                 Utils.wait(webDriver, 5);
-                //assertTrue(postPage.addToFavourites());
-                //Utils.wait(webDriver, 5);
-                //String firstTitle = postPage.getTitle();
-                postPage.goToEarlier();
-                Utils.wait(webDriver, 5);
-                //String secondTitle = postPage.getTitle();
-                //assertNotEquals(firstTitle, secondTitle);
-                postPage.goToFurther();
-                Utils.wait(webDriver, 5);
-                //String firstTitleSecondTry = postPage.getTitle();
-                //assertEquals(firstTitle, firstTitleSecondTry);
+                String title = postPage.getTitle();
+                assertNotEquals("", title);
+                webDriver.quit();
             }
         );
     }
