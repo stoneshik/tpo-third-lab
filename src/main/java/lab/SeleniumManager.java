@@ -34,7 +34,7 @@ public class SeleniumManager {
     public void closeDrivers() {
         drivers.forEach(
             webDriver -> {
-                Utils.wait(webDriver, 5);
+                Utils.sleep(5);
                 webDriver.quit();
             }
         );

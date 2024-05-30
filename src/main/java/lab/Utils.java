@@ -22,13 +22,12 @@ public class Utils {
         return driverWait.until(ExpectedConditions.visibilityOfElementLocated(selector));
     }
 
-    public static void wait(WebDriver driver, long timeout) {
-        driver
-            .manage()
-            .timeouts()
-            .implicitlyWait(
-                Duration.ofSeconds(timeout)
-            );
+    public static void sleep(long timeout) {
+        try {
+            Thread.sleep(timeout * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void click(WebDriver driver, WebElement element) {

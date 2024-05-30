@@ -36,5 +36,6 @@ public class LoginPage extends Page {
         emailInput.sendKeys(Utils.CORRECT_EMAIL);
         passwordInput.sendKeys(password);
         Utils.click(driver, authButton);
+        Utils.sleep(10);
     }
 }

@@ -31,10 +31,9 @@ public class ViewPostTest {
                 webDriver.get(Utils.BASE_URL);
                 unauthorizedMainPage.goToLoginPage();
                 loginPage.doCorrectLogin();
-                Utils.wait(webDriver, 15);
                 mainPage.goToPostPage();
                 PostPage postPage = new PostPage(webDriver);
-                Utils.wait(webDriver, 5);
+                Utils.sleep(5);
                 String title = postPage.getTitle();
                 assertNotEquals("", title);
                 webDriver.quit();

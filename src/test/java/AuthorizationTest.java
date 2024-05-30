@@ -31,7 +31,6 @@ public class AuthorizationTest {
                 webDriver.get(Utils.BASE_URL);
                 unauthorizedMainPage.goToLoginPage();
                 loginPage.doCorrectLogin();
-                Utils.wait(webDriver, 15);
                 String title = mainPage.getTitle();
                 assertEquals("Лента", title);
                 webDriver.quit();
@@ -49,7 +48,6 @@ public class AuthorizationTest {
                 webDriver.get(Utils.BASE_URL);
                 unauthorizedMainPage.goToLoginPage();
                 loginPage.doIncorrectLogin();
-                Utils.wait(webDriver, 15);
                 String errorMessage = Utils.getElementByXpath(
                     webDriver,
                     By.xpath("//*[@id=\"loginForm\"]/div[2]/span")
@@ -71,7 +69,6 @@ public class AuthorizationTest {
                 webDriver.get(Utils.BASE_URL);
                 unauthorizedMainPage.goToLoginPage();
                 loginPage.doCorrectLogin();
-                Utils.wait(webDriver, 15);
                 mainPage.doLogout();
                 webDriver.quit();
             }

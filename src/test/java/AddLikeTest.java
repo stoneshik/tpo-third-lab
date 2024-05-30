@@ -30,7 +30,6 @@ public class AddLikeTest {
                 webDriver.get(Utils.BASE_URL);
                 unauthorizedMainPage.goToLoginPage();
                 loginPage.doCorrectLogin();
-                Utils.wait(webDriver, 10);
                 assertTrue(mainPage.addLike());
                 webDriver.quit();
             }

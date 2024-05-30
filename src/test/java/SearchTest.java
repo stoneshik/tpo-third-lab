@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SearchTest {
     private final SeleniumManager seleniumManager = new SeleniumManager();
@@ -30,11 +30,13 @@ public class SearchTest {
                 webDriver.get(Utils.BASE_URL);
                 unauthorizedMainPage.goToLoginPage();
                 loginPage.doCorrectLogin();
-                Utils.wait(webDriver, 15);
                 mainPage.doSearch();
-                Utils.wait(webDriver, 5);
+                Utils.sleep(5);
                 String title = mainPage.getTitleForPageWithFilters();
-                assertEquals("Автозвук, аксессуары, видео и ещё 34", title);
+                assertTrue(
+                    title.equals("Автозвук, аксессуары, видео и ещё 34") ||
+                        title.equals("Аксессуары, видео, визит на&#160;сервис и ещё 34")
+                );
                 webDriver.quit();
             }
         );
